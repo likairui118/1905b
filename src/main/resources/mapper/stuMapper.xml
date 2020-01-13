@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.fh.dao.StuDao">
+
+    <select id="queryStuList"  resultType="com.fh.bean.StudentBean">
+        select * from t_stu
+        where isDel=1
+        limit #{page.start},#{page.length}
+    </select>
+
+    <select id="queryCount"  resultType="long">
+        select count(id) from t_stu where isDel=1
+    </select>
+
+    <insert id="addStu" parameterType="com.fh.bean.StudentBean">
+        insert  into  t_stu
+        (name,age,address,birthday,imgPath,ip,isDel)
+        values
+        (#{name},#{age},#{address},#{birthday},#{imgPath},#{ip},1)
+    </insert>
+    <update id="delStu" parameterType="integer">
+        update t_stu set isDel=2 where id=#{id}
+    </update>
+
+    <select id="queryStuById" resultType="com.fh.bean.StudentBean"  parameterType="integer">
+    select * from t_stu where id=#{id}
+    </select>
+
+    <update id="updateStu" parameterType="com.fh.bean.StudentBean" >
+        update t_stu set
+         name=#{name}
+         ,age=#{age}
+         ,address=#{address}
+         ,birthday=#{birthday}
+         ,imgPath=#{imgPath}
+         where id=#{id}
+
+    </update>
+</mapper>
