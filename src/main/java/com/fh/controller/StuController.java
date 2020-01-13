@@ -2,8 +2,11 @@ package com.fh.controller;
 
 import com.fh.bean.PageData;
 import com.fh.bean.StudentBean;
+import com.fh.dao.StuDao;
 import com.fh.service.StuService;
 import com.fh.utils.aliyunOss.FileUtilesalbb;
+import com.fh.utils.excel.ExcelRefAnno;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
@@ -13,9 +16,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @CrossOrigin
 @RestController
@@ -23,8 +33,29 @@ public class StuController {
 
     @Autowired
     private StuService stuService;
+    @Resource
+    private StuDao stuDao;
     @Autowired
     private HttpServletRequest request;
+
+
+    @RequestMapping("exportExcel")
+    public void exportExcel(HttpServletResponse response) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, IOException {
+        List<StudentBean> userList=stuDao.ExcelList();
+        XSSFWorkbook wb =ExcelRefAnno.exportExcel(userList,StudentBean.class);
+        response.setCharacterEncoding("utf-8");
+        //设置响应数据类型
+        response.setContentType("application/octet-stream");//设置响应类型 告诉浏览器输出内容为流
+         //设置响应文件名
+        response.setHeader("Content-disposition", "attachment;filename=" + UUID.randomUUID().toString() + ".xlsx");
+        //获取响应流
+        ServletOutputStream os = response.getOutputStream();
+       //将workbook的内容 写入输出流中
+        wb.write(os);
+
+        os.close();
+    }
+
 
     @RequestMapping("stuList")
     private PageData<StudentBean> StuList(PageData pageData){

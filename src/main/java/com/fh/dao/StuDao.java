@@ -18,4 +18,6 @@ public interface StuDao {
     StudentBean queryStuById(Integer id);
 
     void updateStu(StudentBean studentBean);
+
+    List<StudentBean> ExcelList();
 }

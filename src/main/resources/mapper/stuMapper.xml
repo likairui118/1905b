@@ -7,6 +7,10 @@
         where isDel=1
         limit #{page.start},#{page.length}
     </select>
+    <select id="ExcelList"  resultType="com.fh.bean.StudentBean">
+        select * from t_stu
+        where isDel=1
+    </select>
 
     <select id="queryCount"  resultType="long">
         select count(id) from t_stu where isDel=1

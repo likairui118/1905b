@@ -1,21 +1,24 @@
 package com.fh.bean;
 
+import com.fh.poi.PoiExcelAnnotation;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
+@PoiExcelAnnotation(title = "学生信息展示",sheetName = "学生信息",mkdir = "commons/excel")
 public class StudentBean {
+    @PoiExcelAnnotation("学生编号")
     private Integer id;
-
+    @PoiExcelAnnotation("学生姓名")
     private String name;
-
+    @PoiExcelAnnotation("生日")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
-
+    @PoiExcelAnnotation("年龄")
     private Integer age;
-
+    @PoiExcelAnnotation("地址")
     private String address;
-
+    @PoiExcelAnnotation("照片")
     private String imgPath;
 
     private Integer isDel;
