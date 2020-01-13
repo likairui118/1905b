@@ -23,6 +23,8 @@ public class StuController {
 
     @Autowired
     private StuService stuService;
+    @Autowired
+    private HttpServletRequest request;
 
     @RequestMapping("stuList")
     private PageData<StudentBean> StuList(PageData pageData){
@@ -31,6 +33,7 @@ public class StuController {
 
        return pageData1;
     }
+
 
     @RequestMapping("addStu")
     private String addStu(StudentBean studentBean,HttpServletRequest request){
