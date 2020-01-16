@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <!--添加一个控制台追加器-->
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout>
+                <pattern>[%-5p] %d %c - %m%n</pattern>
+            </PatternLayout>
+        </Console>
+
+        <!--Appender 2. 输出到滚动保存的文件, 触发保存日志文件的条件是日志文件大于3KB，只保存最新的10个日志-->
+        <File name="log" fileName="C:\Users\admin\Desktop\log\all.log">
+            <PatternLayout pattern="[%d{HH:mm:ss.SSS}] [%-5level] %class{36} %L %M - %msg%xEx%n"/>
+        </File>
+    </Appenders>
+    <Loggers>
+        <logger name="org.springframework" level="INFO" additivity="false">
+            <AppenderRef ref="log"/>
+        </logger>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <appender-ref ref="log"/>
+        </Root>
+    </Loggers>
+</Configuration>
