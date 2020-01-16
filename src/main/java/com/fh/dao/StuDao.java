@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface StuDao {
+    //哈哈哈哈哈哈哈哈哈哈
+
     List<StudentBean> queryStuList(@Param("page") PageData pageData);
 
     long queryCount();
