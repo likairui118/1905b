@@ -7,6 +7,9 @@ import com.fh.service.StuService;
 import com.fh.utils.aliyunOss.FileUtilesalbb;
 import com.fh.utils.excel.ExcelRefAnno;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
@@ -30,19 +33,22 @@ import java.util.UUID;
 @CrossOrigin
 @RestController
 public class StuController {
-
+    private final static Logger log = LoggerFactory.getLogger(StuController.class);
     @Autowired
     private StuService stuService;
     @Resource
     private StuDao stuDao;
-    @Autowired
-    private HttpServletRequest request;
+    //这是一个注释
+
 
 
     @RequestMapping("exportExcel")
     public void exportExcel(HttpServletResponse response) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, IOException {
+
         List<StudentBean> userList=stuDao.ExcelList();
+
         XSSFWorkbook wb =ExcelRefAnno.exportExcel(userList,StudentBean.class);
+
         response.setCharacterEncoding("utf-8");
         //设置响应数据类型
         response.setContentType("application/octet-stream");//设置响应类型 告诉浏览器输出内容为流
@@ -62,7 +68,9 @@ public class StuController {
 
        PageData<StudentBean> pageData1= stuService.queryStuList(pageData);
 
-       return pageData1;
+       log.info("这是一个查询方法");
+
+        return pageData1;
     }
 
 

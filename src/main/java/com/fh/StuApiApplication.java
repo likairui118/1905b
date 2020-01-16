@@ -10,6 +10,9 @@ public class StuApiApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(StuApiApplication.class, args);
+
+
+
     }
 
 }

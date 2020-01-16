@@ -10,8 +10,10 @@ import java.util.List;
  * @date 2019/7/16  9:57
  */
 public class ExcelUtilBean {
+
     //标题
     private String title;
+
     //列头
     private String[] columns;
 

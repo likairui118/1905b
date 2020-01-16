@@ -88,7 +88,8 @@ public class ExportExcelUtil {
                         //转成String
                         //就用excel自带的日期格式
                         XSSFDataFormat dataFormat=workbook.createDataFormat();
-                        dataStyle.setDataFormat( dataFormat.getFormat("yyyy/MM/dd HH:mm:ss"));
+                                                                    // yyyy/MM/dd HH:mm:ss
+                        dataStyle.setDataFormat( dataFormat.getFormat("yyyy-MM-dd"));
                         dataCell.setCellValue((Date) value);
                         dataCell.setCellStyle(dataStyle);
                     }else if(value instanceof Integer){
